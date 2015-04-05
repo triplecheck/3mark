@@ -1,0 +1,7 @@
+*.class
+store/*
+dist/
+build/*
+nbproject/private/
+*temp.html
+
