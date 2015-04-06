@@ -10,6 +10,7 @@
 package core;
 
 import java.io.File;
+import main.CmdLine;
 
 /**
  *
@@ -23,10 +24,14 @@ public class RunTest {
     
     String[] sampleLines = null;
     
+    CmdLine cmd = new CmdLine();
+    int counter = 0;
+    
     /**
      * Start the tests
+     * @throws java.lang.Exception
      */
-    public void start() {
+    public void start() throws Exception {
         // first step is making sure that we have the configuration files available
         if(configIsOk() == false){
             System.err.println("RT24 error: Problem with the configuration files");
@@ -74,7 +79,7 @@ public class RunTest {
     /**
      * Go through each line to test the expected output
      */
-    private void processLines() {
+    private void processLines() throws Exception {
         // iterate the available lines
         for(final String line : sampleLines){
             // further break the line being handled
@@ -86,18 +91,44 @@ public class RunTest {
      * Decomposes a line and launches the test
      * @param line 
      */
-    private void processLine(final String line) {
+    private void processLine(final String line) throws Exception {
+        // increase the counter
+        counter++;
         // get the data fields inside the line
         final String[] data = line.split(">");
         // the first field if the sample file, which must exist
-        File file = new File(data[0]);
+        final File file = new File(data[0]);
         if(file.exists() == false || file.isDirectory()){
             System.err.println("RT95 error, failed to process line: " + line);
             return;
         }
 
+        String[] args = new String[]{"detect", data[0]};
         
-        System.out.println("File: " + data[0] + "; Result: " + data[1]);
+        cmd = new CmdLine();
+        
+        // do the test
+        if(cmd.isCommandLineUsed(args) == false){
+            System.err.println("RT107 error: Was expecting to detect: " + line);
+            return;
+        }
+        
+        final String message = "Line " + counter + " ";
+        
+        if(cmd.getAnswer().isEmpty()){
+            System.err.println("No answer for line " + line);
+            return;
+        }
+        
+        
+        if(cmd.getAnswer().equals(data[1])){
+            System.out.println(message + "OK");
+        }else{
+            System.out.println(message + "FAILED. Expected "
+                    + data[1]
+                    + " but got "
+                    + cmd.getAnswer());
+        }
     }
         
 }

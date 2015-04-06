@@ -19,8 +19,9 @@ public class Main {
     
     /**
      * @param args the command line arguments
+     * @throws java.lang.Exception
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         // run the class that performs the tests
         RunTest run = new RunTest();
         run.start();
