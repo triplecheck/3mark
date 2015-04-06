@@ -105,7 +105,6 @@ public class RunTest {
 
         String[] args = new String[]{"detect", data[0]};
         
-        cmd = new CmdLine();
         
         // do the test
         if(cmd.isCommandLineUsed(args) == false){

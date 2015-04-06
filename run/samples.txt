@@ -1,4 +1,4 @@
+./samples/licenses/BSD/BSD-4-Clause/libevent-2014-06-14/buffer.c>LICENSE: BSD-3-Clause
 ./archive_licenses/AGPL-3.0.txt>LICENSE: AGPL-3.0
-./archive_licenses/BSD-2-Clause.txt>LICENSE: BSD-2-Clause
 ./archive_licenses/BSD-2-Clause.txt>LICENSE: BSD-3-Clause
 
